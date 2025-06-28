@@ -1,0 +1,129 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formatador de Contas Blox Fruits</title>
+  <link rel="icon" type="image/png" href="Tudo.png">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #fff;
+      padding: 20px;
+      position: relative;
+    }
+    .logo-canto {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 80px;
+      height: auto;
+      z-index: 10;
+    }
+    textarea, pre {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 14px;
+      background: #222;
+      border: 1px solid #444;
+      color: #0f0;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+      margin: 5px 5px 5px 0;
+    }
+    .btn-limpar {
+      background: #f00;
+      color: #fff;
+    }
+    .btn-limpar:hover {
+      background: #c00;
+    }
+    .btn-formatar {
+      background: #0f0;
+      color: #000;
+    }
+    .btn-formatar:hover {
+      background: #0c0;
+    }
+    .btn-copiar {
+      background: #00f;
+      color: #fff;
+    }
+    .btn-copiar:hover {
+      background: #009;
+    }
+    .btn-colar {
+      background: #ff0;
+      color: #000;
+    }
+    .btn-colar:hover {
+      background: #cc0;
+    }
+  </style>
+</head>
+<body>
+  <img src="Tudo.png" alt="Logo Lunar Shop" class="logo-canto">
+  <h1>Formatador de Contas Blox Fruits</h1>
+  <p>Cole abaixo suas contas no formato <code>usuario:senha:_</code>:</p>
+
+  <button class="btn-limpar" onclick="limpar()">Limpar Tudo</button>
+  <button class="btn-colar" onclick="colar()">Colar</button>
+
+  <textarea id="input" rows="10" placeholder="Ex: usuario123:senha123:_"></textarea>
+
+  <button class="btn-formatar" onclick="formatar()">Formatar</button>
+
+  <h2>Resultado:</h2>
+  <pre id="output"></pre>
+
+  <button class="btn-copiar" onclick="copiarResultado()">Copiar Resultado</button>
+
+  <script>
+    function formatar() {
+      const entrada = document.getElementById('input').value;
+      const linhas = entrada.split('\n');
+      let resultado = '';
+
+      linhas.forEach(linha => {
+        const partes = linha.split(':');
+        if (partes.length >= 2) {
+          const usuario = partes[0].trim();
+          const senha = partes[1].trim();
+          resultado += `Usuario: ${usuario} / Senha: ${senha} - Troque a Senha, Gmail e Coloque seu Numero! - APENAS 1 DIA DE GARANTIA OK!✅\n`;
+        }
+      });
+
+      document.getElementById('output').textContent = resultado;
+    }
+
+    function limpar() {
+      document.getElementById('input').value = '';
+      document.getElementById('output').textContent = '';
+    }
+
+    function copiarResultado() {
+      const resultado = document.getElementById('output');
+      navigator.clipboard.writeText(resultado.textContent).then(() => {
+        alert('Resultado copiado com sucesso!');
+      }, err => {
+        alert('Erro ao copiar: ' + err);
+      });
+    }
+
+    function colar() {
+      navigator.clipboard.readText().then(text => {
+        document.getElementById('input').value = text;
+      }).catch(err => {
+        alert('Erro ao colar: ' + err);
+      });
+    }
+  </script>
+</body>
+</html>
